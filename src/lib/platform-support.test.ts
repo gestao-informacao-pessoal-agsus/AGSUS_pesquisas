@@ -4,20 +4,26 @@ import {
   isSuperAdminOnlyRoute,
   PLATFORM_SUPPORT_EMAIL,
   SUPER_ADMIN_ONLY_MODULES,
-  supportMailtoHref,
+  supportComposeHref,
 } from "./platform-support";
 
-describe("supportMailtoHref", () => {
-  it("aponta para o canal institucional com assunto preenchido", () => {
-    expect(supportMailtoHref()).toBe(
-      `mailto:${PLATFORM_SUPPORT_EMAIL}?subject=${encodeURIComponent("Suporte — AgSUS Avaliações")}`,
+describe("supportComposeHref", () => {
+  it("abre o compositor do Gmail no canal institucional, com assunto preenchido", () => {
+    expect(supportComposeHref()).toBe(
+      "https://mail.google.com/mail/?view=cm&fs=1" +
+        `&to=${encodeURIComponent(PLATFORM_SUPPORT_EMAIL)}` +
+        `&su=${encodeURIComponent("Suporte — AgSUS Avaliações")}`,
     );
   });
 
   it("codifica assunto personalizado", () => {
-    expect(supportMailtoHref("Dúvida & acesso")).toBe(
-      `mailto:${PLATFORM_SUPPORT_EMAIL}?subject=D%C3%BAvida%20%26%20acesso`,
+    expect(supportComposeHref("Dúvida & acesso")).toContain(
+      "&su=D%C3%BAvida%20%26%20acesso",
     );
+  });
+
+  it("não usa mailto: — o destino é sempre o webmail", () => {
+    expect(supportComposeHref()).not.toContain("mailto:");
   });
 });
 

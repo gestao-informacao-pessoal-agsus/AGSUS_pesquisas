@@ -104,9 +104,9 @@ export default function SurveysPage() {
       <div className="space-y-5">
         <Surface className="p-5 sm:p-6">
           <PageHeader
-            eyebrow="Instrumentos disponíveis"
+            eyebrow="Portal de Avaliações"
             title="Sua jornada de avaliações"
-            description="Cada cartão representa um ciclo de avaliação disponível para você. Veja primeiro a situação, depois o prazo e a ação recomendada."
+            description="Acompanhe cada ciclo, seus prazos e a situação atual das suas respostas."
             actions={
               <label className="relative block w-full min-w-64 lg:min-w-80">
                 <span className="sr-only">Buscar avaliação</span>
@@ -116,7 +116,7 @@ export default function SurveysPage() {
                   enterKeyHint="search"
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
-                  placeholder="Buscar avaliação, código ou ciclo"
+                  placeholder="Buscar avaliação"
                   className="h-11 w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] pl-11 pr-4 text-sm font-semibold text-[var(--text-primary)] outline-none focus:bg-[var(--surface-card)] focus:ring-4 focus:ring-[var(--focus-ring)]/20"
                 />
               </label>
@@ -164,7 +164,7 @@ export default function SurveysPage() {
 
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between" aria-live="polite">
           <p className="text-sm font-bold text-[var(--text-primary)]">{catalogLoading ? "Atualizando catálogo..." : `${filtered.length} de ${items.length} ciclo(s) exibido(s)`}</p>
-          <p className="text-xs text-[var(--text-secondary)]">A situação combina o período do ciclo com o seu preenchimento.</p>
+          <p className="text-xs text-[var(--text-secondary)]"> </p>
         </div>
 
         {catalogLoading ? (

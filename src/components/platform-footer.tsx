@@ -1,11 +1,12 @@
-import { PLATFORM_SUPPORT_EMAIL, supportMailtoHref } from "@/lib/platform-support";
+import { PLATFORM_SUPPORT_EMAIL, supportComposeHref } from "@/lib/platform-support";
 
 /**
  * Rodapé institucional das telas internas.
  *
- * Discreto de propósito: uma linha com o canal de suporte. O link é `mailto:`,
- * então abre o cliente de e-mail padrão da máquina com destinatário e assunto
- * já preenchidos — não depende de nenhuma integração da plataforma.
+ * Discreto de propósito: uma linha com o canal de suporte. O link abre o
+ * compositor do Gmail em nova aba, com destinatário e assunto já preenchidos —
+ * não depende do cliente de e-mail instalado na máquina nem de integração da
+ * plataforma.
  *
  * Não aparece nas rotas exclusivas do Superadmin (ver `PlatformShell`).
  */
@@ -15,7 +16,10 @@ export function PlatformFooter() {
       <p className="border-t border-[var(--border-subtle)] pt-3">
         Precisa de ajuda? Fale conosco:{" "}
         <a
-          href={supportMailtoHref()}
+          href={supportComposeHref()}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Escrever para o suporte (${PLATFORM_SUPPORT_EMAIL}) — abre o webmail em nova aba`}
           className="font-semibold underline underline-offset-2 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1"
           style={{ color: "#8f8f8f" }}>
         {PLATFORM_SUPPORT_EMAIL}

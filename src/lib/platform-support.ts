@@ -5,14 +5,24 @@ export const PLATFORM_SUPPORT_EMAIL = "dados.recursoshumanos@agenciasus.org.br";
 
 const SUPPORT_SUBJECT = "Suporte — AgSUS Avaliações";
 
+/** Compositor web do Gmail: `view=cm` abre nova mensagem, `fs=1` em tela cheia. */
+const GMAIL_COMPOSE_URL = "https://mail.google.com/mail/?view=cm&fs=1";
+
 /**
- * Link de e-mail para o canal de suporte, com assunto já preenchido.
+ * Link para o canal de suporte no webmail, com destinatário e assunto prontos.
  *
- * `mailto:` entrega a mensagem ao cliente de e-mail padrão do computador — não
- * há envio pela plataforma, portanto nenhum dado do usuário trafega aqui.
+ * Aponta para o compositor do Gmail em vez de `mailto:` de propósito: `mailto:`
+ * depende do cliente de e-mail padrão da máquina, que varia entre estações e às
+ * vezes não existe — nesses casos o clique não faz nada. A identidade da
+ * plataforma já é Google (login e foto de perfil vêm da conta institucional),
+ * então o webmail é o destino previsível para todo mundo.
+ *
+ * Sem sessão Google ativa o Gmail apresenta a escolha de conta antes do
+ * rascunho. Não há envio pela plataforma: nenhum dado do usuário trafega aqui.
  */
-export function supportMailtoHref(subject: string = SUPPORT_SUBJECT) {
-  return `mailto:${PLATFORM_SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}`;
+export function supportComposeHref(subject: string = SUPPORT_SUBJECT) {
+  const recipient = encodeURIComponent(PLATFORM_SUPPORT_EMAIL);
+  return `${GMAIL_COMPOSE_URL}&to=${recipient}&su=${encodeURIComponent(subject)}`;
 }
 
 /**
